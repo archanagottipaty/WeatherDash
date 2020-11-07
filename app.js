@@ -21,7 +21,6 @@ $("form").on("submit", function (e)
 
   let list = document.querySelector("#searchedCities");
   
-
   let element = document.createElement("tr");
   let element1 = document.createElement("td");
 
@@ -51,8 +50,58 @@ $("form").on("submit", function (e)
       var dataS = JSON.stringify(data);
       console.log("inside fetch string: ");
       console.log(dataS);
+      getCoordinates(data);
       display(data);
+
+      // TODO: move code here
+    }).then(() => {
+      var URL1 =
+      "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+      Lat +
+      "&lon=" +
+      Lon +
+      "&units=" + "imperial"+
+      "&exclude=" +
+      part +
+      "&appid=e3cdabf7296ad5ad27b92f8faad0a9a8";
+      console.log("new URL1:", URL1);
+      console.log("new lat*: " + Lat);
+      console.log(" new lon*: " + Lon);
+  
+    fetch(URL1, {
+      // The browser fetches the resource from the remote server without first looking in the cache.
+      // The browser will then update the cache with the downloaded resource.
+      // cache: 'reload',
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log("inside fetch of URL1: ");
+        console.log(data);
+        displayFiveDay(data);
+      });
     });
+
+
+  function getCoordinates(items, cb){
+    Lat = items.coord.lat;
+    Lon = items.coord.lon;
+    var URL2 =
+    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+    Lat +
+    "&lon=" +
+    Lon +
+    "&units=" + "imperial"+
+    "&exclude=" +
+    part +
+    "&appid=e3cdabf7296ad5ad27b92f8faad0a9a8";
+    console.log("URL2:", URL2);
+
+
+  }
+
+  
 
   function display(items) {
     //console.log(items);
@@ -93,7 +142,6 @@ $("form").on("submit", function (e)
     //searchedCities.prepend(element);
     let headingElement1 = document.createElement("p");
     //let element1 = document.createElement("td");
-    let mainO = items.main;
     //console.log("items.main" + items);
     headingElement1.textContent =
       "Temperature: " + items.main.temp + "\u00B0 F";
@@ -118,32 +166,33 @@ $("form").on("submit", function (e)
 
   // api.openweathermap.org/data/2.5/forecast/daily?q={city name}&cnt={cnt}&appid={API key}
 
-  console.log("lat*: " + Lat);
-  console.log("lon*: " + Lon);
-  var URL1 =
-    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
-    Lat +
-    "&lon=" +
-    Lon +
-    "&units=" + "imperial"+
-    "&exclude=" +
-    part +
-    "&appid=e3cdabf7296ad5ad27b92f8faad0a9a8";
-  //console.log("URL1:", URL1);
+  
+  // var URL1 =
+  //   "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+  //   Lat +
+  //   "&lon=" +
+  //   Lon +
+  //   "&units=" + "imperial"+
+  //   "&exclude=" +
+  //   part +
+  //   "&appid=e3cdabf7296ad5ad27b92f8faad0a9a8";
+  // console.log("URL1:", URL1);
+  // console.log("lat*: " + Lat);
+  // console.log("lon*: " + Lon);
 
-  fetch(URL1, {
-    // The browser fetches the resource from the remote server without first looking in the cache.
-    // The browser will then update the cache with the downloaded resource.
-    // cache: 'reload',
-  })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log("inside fetch of URL1: ");
-      console.log(data);
-      displayFiveDay(data);
-    });
+  // fetch(URL1, {
+  //   // The browser fetches the resource from the remote server without first looking in the cache.
+  //   // The browser will then update the cache with the downloaded resource.
+  //   // cache: 'reload',
+  // })
+  //   .then(function (response) {
+  //     return response.json();
+  //   })
+  //   .then(function (data) {
+  //     console.log("inside fetch of URL1: ");
+  //     console.log(data);
+  //     displayFiveDay(data);
+  //   });
   function displayFiveDay(data) {
     let List11 = document.querySelector(".col-8");
 
