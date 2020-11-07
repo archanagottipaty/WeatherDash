@@ -9,6 +9,22 @@ h3{
   padding-bottom: 30px;
 }
 
+.block{
+
+  background-color: red;
+  color: white;
+}
+
+
+.col-2{
+  display:inline;
+  /* background-color: blue; */
+}
+
+.col-2 {
+  display:inline;
+  /* background-color: blue; */
+}
 /* h3 {
   position: relative;
   left: 30px;
