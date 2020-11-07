@@ -23,10 +23,13 @@ $("form").on("submit", function (e)
   
   let element = document.createElement("tr");
   let element1 = document.createElement("td");
+  // let element2 = document.createElement("button");
 
-  element1.textContent = cityName;
+   let myButton = "<form><input type=submit value="+cityName1+" style='width:100%'></form>";
+
+  element1.innerHTML = myButton;
   element.append(element1);
-  searchedCities.prepend(element);
+   list.prepend(element);
 
   var key = "e3cdabf7296ad5ad27b92f8faad0a9a8";
 
