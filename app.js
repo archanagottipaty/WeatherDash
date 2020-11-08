@@ -5,6 +5,7 @@ let Lat;
 let Lon;
 var part = ["minutely", "hourly", "alerts"];
 let list1 = document.querySelector("#zero");
+let uviSet = false;
 //console.log("list1: ");
 //console.log(list1);
 
@@ -25,12 +26,12 @@ $("form").on("submit", function (e)
   let element1 = document.createElement("td");
   // let element2 = document.createElement("button");
 
-   let myButton = "<form><input type=submit value="+cityName1+" style='width:100%'></form>";
-
+   let myButton = "<form id = 'myForm'><input type=submit value="+cityName1+" style='width:100%'></form>";
+   console.log("Creating my butotns!!!!!!");
   element1.innerHTML = myButton;
   element1.setAttribute("id", cityName1);
   element.append(element1);
-   list.prepend(element);
+  list.prepend(element);
 
   var key = "e3cdabf7296ad5ad27b92f8faad0a9a8";
 
@@ -88,7 +89,7 @@ $("form").on("submit", function (e)
     });
 
 
-    $("form").on("submit", function (e) 
+  $("#myForm").on("submit", function (e) 
 {
   e.preventDefault();
   cityName = e.target.querySelector("input").value;
@@ -101,15 +102,15 @@ $("form").on("submit", function (e)
 
   let list = document.querySelector("#searchedCities");
   
-  let element = document.createElement("tr");
-  let element1 = document.createElement("td");
-  // let element2 = document.createElement("button");
+  // let element = document.createElement("tr");
+  // let element1 = document.createElement("td");
+  // // let element2 = document.createElement("button");
+  //  console.log("!!!!!!!creating button!!!!!!!");
+  //  let myButton = "<form><input type=submit value="+cityName1+" style='width:100%'></form>";
 
-   let myButton = "<form><input type=submit value="+cityName1+" style='width:100%'></form>";
-
-  element1.innerHTML = myButton;
-  element.append(element1);
-   list.prepend(element);
+  // element1.innerHTML = myButton;
+  // element.append(element1);
+  //  list.prepend(element);
 
   var key = "e3cdabf7296ad5ad27b92f8faad0a9a8";
 
@@ -150,7 +151,7 @@ $("form").on("submit", function (e)
       console.log("new URL1:", URL1);
       console.log("new lat*: " + Lat);
       console.log(" new lon*: " + Lon);
-    });
+   
   
     fetch(URL1, {
       // The browser fetches the resource from the remote server without first looking in the cache.
@@ -166,6 +167,7 @@ $("form").on("submit", function (e)
         displayFiveDay(data);
       });
     });
+  });
 
 
   function getCoordinates(items, cb){
@@ -181,18 +183,13 @@ $("form").on("submit", function (e)
     part +
     "&appid=e3cdabf7296ad5ad27b92f8faad0a9a8";
     console.log("URL2:", URL2);
-
-
   }
-
-  
-
   function display(items) {
     //console.log(items);
     // let dateNow = moment.format('MMM Do YY');
     // //console.log("data.name is" + items.name + dateNow);
 
-    let List1 = document.querySelector(".col-8");
+    let List1 = document.querySelector(".col-sm-8");
     List1.innerHTML= "";
     let headingElement = document.createElement("h3");
     // headingElement.setAttribute("position", "30px");
@@ -278,12 +275,17 @@ $("form").on("submit", function (e)
   //     displayFiveDay(data);
   //   });
   function displayFiveDay(data) {
-    let List11 = document.querySelector(".col-8");
+    let List11 = document.querySelector(".col-sm-8");
+     uviSet = false;
 
     let uvi = data.current.uvi;
     let headingElement3 = document.createElement("p");
+   
+    
     headingElement3.innerHTML = "UV Index: " + "<span class = 'block'>" +  uvi  + "</span>";
     List11.append(headingElement3);
+   
+
     console.log("5 day forecast: ");
     console.log(data);
     let columns = ["#zero", "#one", "#two", "#three", "#four"];
